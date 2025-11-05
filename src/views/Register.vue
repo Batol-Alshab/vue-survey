@@ -16,16 +16,19 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" @submit="register" method="POST">
         <div class="pb-6">
-          <label for="fulname" class="block text-sm/6 font-medium text-gray-100 pb-3"
+          <label
+            for="fullname"
+            class="block text-sm/6 font-medium text-gray-100 pb-3"
             >Full name</label
           >
           <div class="mt-2">
             <input
-              type="twext"
+              type="text"
               name="name"
               id="name"
+              v-model="user.name"
               autocomplete="name"
               required
               class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
@@ -33,7 +36,9 @@
           </div>
         </div>
         <div class="pb-6">
-          <label for="email" class="block text-sm/6 font-medium text-gray-100 pb-3"
+          <label
+            for="email"
+            class="block text-sm/6 font-medium text-gray-100 pb-3"
             >Email address</label
           >
           <div class="mt-2">
@@ -41,6 +46,7 @@
               type="email"
               name="email"
               id="email"
+              v-model="user.email"
               autocomplete="email"
               required
               class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
@@ -61,6 +67,28 @@
               type="password"
               name="password"
               id="password"
+              v-model="user.password"
+              autocomplete="current-password"
+              required
+              class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+            />
+          </div>
+        </div>
+
+        <div class="pb-6">
+          <div class="flex items-center justify-between pb-3">
+            <label
+              for="password_confirmation"
+              class="block text-sm/6 font-medium text-gray-100"
+              >password_confirmation</label
+            >
+          </div>
+          <div class="mt-2">
+            <input
+              type="password"
+              name="password_confirmation"
+              id="password"
+              v-model="user.password_confirmation"
               autocomplete="current-password"
               required
               class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
@@ -90,3 +118,39 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import store from "@/store";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+
+const router = useRouter();
+const user = {
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+};
+
+const loading = ref(false);
+const errors = ref({});
+
+function register(ev) {
+  ev.preventDefault();
+  // loading.value = true;
+  store
+    .dispatch("register", user)
+    .then(() => {
+      // loading.value = false;
+      router.push({
+        name: "Dashboard",
+      });
+    })
+    // .catch((error) => {
+    //   loading.value = false;
+    //   if (error.response.status == 422) {
+    //     errors.value = error.response.data.errors;
+    //   }
+    // });
+}
+</script>

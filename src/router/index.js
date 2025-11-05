@@ -17,7 +17,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
-        path: "/Dashboard",
+        path: "/dashboard",
         name: "Dashboard",
         component: Dashboard,
       },
@@ -53,7 +53,7 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.state.user.token) {
+  if (to.meta.requiresAuth && !(store.state.user.token)) {
     next({ name: "Login" });
   } else if (
     store.state.user.token &&
