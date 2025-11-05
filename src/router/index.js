@@ -11,7 +11,7 @@ import AuthLayout from "../components/AuthLayout.vue";
 const routes = [
   {
     path: "/",
-    derirted: "Dashboard",
+    redirect: "/dashboard",
     name: "Dashboard",
     component: DefaultLayout,
     meta: { requiresAuth: true },
