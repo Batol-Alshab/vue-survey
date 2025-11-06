@@ -1,12 +1,13 @@
 import { createRouter } from "vue-router";
 import { createWebHistory } from "vue-router";
+import store from "../store";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import Dashboard from "../views/Dashboard.vue";
-import login from "../views/Login.vue";
-import register from "../views/Register.vue";
-import surveys from "../views/Surveys.vue";
-import store from "../store";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
+import Surveys from "../views/Surveys.vue";
 import AuthLayout from "../components/AuthLayout.vue";
+import SurveyView from "@/views/SurveyView.vue";
 
 const routes = [
   {
@@ -21,11 +22,25 @@ const routes = [
         name: "Dashboard",
         component: Dashboard,
       },
+
       {
         path: "/surveys",
         name: "Surveys",
-        component: surveys,
+        component: Surveys,
       },
+
+      {
+        path: "/surveys/create",
+        name: "SurveyCreate",
+        component: SurveyView,
+      },
+
+      {
+        path: "/surveys/:id",
+        name: "SurveyView",
+        component: SurveyView,
+      },
+
     ],
   },
   {
@@ -38,12 +53,12 @@ const routes = [
       {
         path: "/register",
         name: "Register",
-        component: register,
+        component: Register,
       },
       {
         path: "/login",
         name: "Login",
-        component: login,
+        component: Login,
       },
     ],
   },
