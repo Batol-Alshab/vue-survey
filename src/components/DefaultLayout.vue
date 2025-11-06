@@ -186,9 +186,10 @@ const navigation = [
   { name: "Surveys", to: { name: "Surveys" } },
 ];
 function logout() {
-  store.commit('logout')
-  router.push({
-    name: 'Login'
-  })
+  store.dispatch("logout").then(() => {
+    router.push({
+      name: "Login",
+    });
+  });
 }
 </script>
