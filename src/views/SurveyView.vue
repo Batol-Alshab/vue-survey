@@ -42,7 +42,7 @@
               </span>
               <button
                 type="button"
-                class="relative overflow-hidden bg-gray-500 m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-gray-200 leading-4 hover:bg-gray-100 hover:text-black"
+                class="relative overflow-hidden bg-gray-500 m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-gray-200 leading-4 hover:bg-gray-700 "
               >
                 <input
                   type="file"
@@ -140,7 +140,7 @@
             <button
               type="button"
               @click="aaQestion()"
-              class="flex items-center px-4 py-1 bg-gray-500 hover:bg-gray-100 hover:text-black rounded-sm text-sm"
+              class="flex items-center px-4 py-1 bg-gray-500 hover:bg-gray-700 rounded-sm text-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +164,14 @@
             You don't have any questions created
           </div>
           <div v-for="(question , index) in model.questions " :key="question.id"> 
+            <QuestionEditor
+            :question="question"
+            :index="index"
+            @change="questionChange"
+            @addQuestion="addQuestion"
+            @deleteQuestion="geleteQuestion">
 
+            </QuestionEditor>
           </div>
         </div>
         <!-- save -->
@@ -186,6 +193,8 @@ import { ref } from "vue";
 import store from "@/store";
 import { useRoute } from "vue-router";
 import PageComponent from "@/components/PageComponent.vue";
+import QuestionEditor from "@/components/editor/QuestionEditor.vue";
+
 const route = useRoute();
 let model = ref({
   title: "",
