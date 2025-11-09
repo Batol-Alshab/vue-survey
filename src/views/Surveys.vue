@@ -62,7 +62,7 @@
             v-if="survey.id"
             @click="deleteSurvey(survey)"
             class="h-8 w-8 flex items-center justify-center rounded-full 
-            border border-transparent text-sm text-red-500 
+             cursor-pointer border border-transparent text-sm text-red-500 
             focus:ring-2 focus:ring-offset-0 focus:ring-red-500"
           >
             <svg
