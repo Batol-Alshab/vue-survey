@@ -3,7 +3,7 @@ import axiosClient from "@/axios";
 
 const tmpSurveys = [
   {
-    id: 3,
+    id: 30,
     title: "My First Survey",
     slug: "my-first-survey",
     status: "draft",
@@ -108,7 +108,7 @@ const tmpSurveys = [
   },
 
   {
-    id: 4,
+    id: 40,
     title: "My First Survey",
     slug: "my-first-survey",
     status: "draft",
@@ -212,7 +212,7 @@ const tmpSurveys = [
     ],
   },
   {
-    id: 3,
+    id: 31,
     title: "My First Survey",
     slug: "my-first-survey",
     status: "draft",
@@ -317,7 +317,7 @@ const tmpSurveys = [
   },
 
   {
-    id: 4,
+    id: 41,
     title: "My First Survey",
     slug: "my-first-survey",
     status: "draft",
@@ -427,11 +427,32 @@ const store = createStore({
       data: {},
       token: sessionStorage.getItem("TOKEN"),
     },
+    currentSurvey: {
+      loading: false,
+      data: {},
+    },
     surveys: [...tmpSurveys],
     questionTypes: ["text", "select", "radio", "checkbox", "textarea"],
   },
   getters: {},
+ 
   actions: {
+    getSurvey: ({ commit }, id) => {
+      commit("setcurrentSurveyLoading", true);
+      return (
+        axiosClient.
+        get(`/survey/${id}`)
+          .then((res) => {
+            commit("setcurrentSurvey", res.data);
+            commit("setcurrentSurveyLoading", false);
+            return res;
+          })
+          .catch((err) => {
+            commit("setcurrentSurveyLoading", false);
+            throw err;
+          })
+      );
+    },
     saveSurvey({ commit }, survey) {
       if (survey.id) {
         return axiosClient.put(`survey/${survey.id}`, survey).then((res) => {
@@ -467,6 +488,13 @@ const store = createStore({
     },
   },
   mutations: {
+    setcurrentSurveyLoading: (state, loading) => {
+      state.currentSurvey.loading = loading;
+    },
+    setcurrentSurvey: (state, survey) => {
+      state.currentSurvey.data = survey.data;
+    },
+
     saveSurvey: (state, survey) => {
       state.surveys = [...state.surveys, survey.data];
     },

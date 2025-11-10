@@ -3,7 +3,7 @@
     <template v-slot:header>
       <div class="flex items-center justify-between">
         <h1 class="text-3xl font-bold text-gray-100">
-          {{ route.params.id  ? model.title : "Create a Survey" }}
+          {{ route.params.id ? model.title : "Create a Survey" }}
         </h1>
       </div>
     </template>
@@ -68,8 +68,7 @@
               id="title"
               v-model="model.title"
               autocomplete="survey_title"
-              class="py-1.5 px-3 mt-1 text-white border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 
-           focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="py-1.5 px-3 mt-1 text-white border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <!-- title -->
@@ -90,8 +89,7 @@
                 v-model="model.description"
                 autocomplete="survey_description"
                 placeholder="Description your survey"
-                class="py-1.5 px-3 text-white mt-1 border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm  focus:bg-gray-900 
-           focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="py-1.5 px-3 text-white mt-1 border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
               </textarea>
             </div>
@@ -110,8 +108,7 @@
               name="expire_date"
               id="expire_date"
               v-model="model.expire_date"
-              class="py-1.5 px-3 mt-1  border border-gray-400 text-white w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 
-           focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="py-1.5 px-3 mt-1 border border-gray-400 text-white w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <!-- expire_date -->
@@ -192,7 +189,7 @@
   </PageComponent>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import store from "@/store";
 import { useRoute } from "vue-router";
 import PageComponent from "@/components/PageComponent.vue";
@@ -211,12 +208,21 @@ let model = ref({
   expire_date: null,
   questions: [],
 });
-if (route.params.id) {
-  model.value = store.state.surveys.find(
-    (s) => s.id === parseInt(route.params.id)
-  );
-}
 
+// watch to current survey data change
+watch(
+  () => store.state.currentSurvey.data, // هذا المصدر الذي نراقبه
+  (newVal, oldVal) => {                 // هذا الكولباك
+    model.value = {
+      ...JSON.parse(JSON.stringify(newVal)),
+      status: newVal.status !== "draft",
+    };
+  }
+);
+
+if (route.params.id) {
+  store.dispatch("getSurvey", route.params.id);
+}
 
 function addQuestion(index) {
   const newQuestion = {
@@ -242,12 +248,12 @@ function questionChange(question) {
 }
 
 // create or update survey
-function saveSurvey(){
-  store.dispatch('saveSurvey',model.value).then(({data})=>{
+function saveSurvey() {
+  store.dispatch("saveSurvey", model.value).then(({ data }) => {
     router.push({
-      name:'SurveyView',
-      params:{id: data.data.id}
-    })
-  })  
+      name: "SurveyView",
+      params: { id: data.data.id },
+    });
+  });
 }
 </script>
