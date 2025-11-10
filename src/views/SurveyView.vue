@@ -3,7 +3,7 @@
     <template v-slot:header>
       <div class="flex items-center justify-between">
         <h1 class="text-3xl font-bold text-gray-100">
-          {{ route.params.id ? model.title : "Create a Survey" }}
+          {{ route.params.id && model ? model.title : "Create a Survey" }}
         </h1>
       </div>
     </template>
@@ -42,7 +42,7 @@
               </span>
               <button
                 type="button"
-                class="relative overflow-hidden bg-gray-500 m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-gray-200 leading-4 hover:bg-gray-700 "
+                class="relative overflow-hidden bg-gray-500 m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-gray-200 leading-4 hover:bg-gray-700"
               >
                 <input
                   type="file"
@@ -139,7 +139,7 @@
             <!-- Add new Question -->
             <button
               type="button"
-              @click="aaQestion()"
+              @click="addQuestion()"
               class="flex items-center px-4 py-1 bg-gray-500 hover:bg-gray-700 rounded-sm text-sm"
             >
               <svg
@@ -160,17 +160,17 @@
               Add Question
             </button>
           </h3>
-          <div v-if="!model.questions.length" class="text-center text-gray-300"> 
+          <div v-if="!model.questions.length" class="text-center text-gray-300">
             You don't have any questions created
           </div>
-          <div v-for="(question , index) in model.questions " :key="question.id"> 
+          <div v-for="(question, index) in model.questions" :key="question.id">
             <QuestionEditor
-            :question="question"
-            :index="index"
-            @change="questionChange"
-            @addQuestion="addQuestion"
-            @deleteQuestion="geleteQuestion">
-
+              :question="question"
+              :index="index"
+              @change="questionChange"
+              @addQuestion="addQuestion"
+              @deleteQuestion="deleteQuestion"
+            >
             </QuestionEditor>
           </div>
         </div>
@@ -194,8 +194,10 @@ import store from "@/store";
 import { useRoute } from "vue-router";
 import PageComponent from "@/components/PageComponent.vue";
 import QuestionEditor from "@/components/editor/QuestionEditor.vue";
+import { v4 as uuidv4 } from "uuid";
 
 const route = useRoute();
+// create empty survey
 let model = ref({
   title: "",
   status: false,
@@ -204,9 +206,50 @@ let model = ref({
   expire_date: null,
   questions: [],
 });
+// if (route.params.id) {
+//   model.value = store.state.surveys.find(
+//     (s) => s.id === parseInt(route.params.id)
+//   );
+// }
 if (route.params.id) {
-  model.value = store.state.surveys.find(
+  const survey = store.state.surveys.find(
     (s) => s.id === parseInt(route.params.id)
   );
+  if (survey) {
+    model.value = survey;
+  } else {
+    // إذا الـ id غير موجود
+    model.value = {
+      title: "Survey Not Found",
+      status: false,
+      description: "",
+      image: null,
+      expire_date: null,
+      questions: [],
+    };
+  }
+}
+
+function addQuestion(index) {
+  const newQuestion = {
+    id: uuidv4(),
+    type: "text",
+    question: "",
+    description: "",
+    data: {},
+  };
+  model.value.questions.splice(index, 0, newQuestion);
+}
+function deleteQuestion(question) {
+  model.value.questions = model.value.questions.filter((q) => q !== question);
+}
+
+function questionChange(question) {
+  model.value.questions = model.value.questions.map((q) => {
+    if (q.id === question.id) {
+      return JSON.parse(JSON.stringify(question));
+    }
+    return q;
+  });
 }
 </script>

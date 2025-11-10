@@ -211,7 +211,7 @@ const tmpSurveys = [
       },
     ],
   },
-   {
+  {
     id: 3,
     title: "My First Survey",
     slug: "my-first-survey",
@@ -323,7 +323,7 @@ const tmpSurveys = [
     status: "draft",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNOUXBO27g82sqvcZu57eEDH_R7vxqh1XDUimEBM99toVAfBbyuStm_7Tr5VIZjPFKmOZyscQFHEdXb2S69eZIG3xIRvHVACZBNWEmE6Xi&s=10",
-    description: '',
+    description: "",
     expire_date: "2025-12-31T23:59:59",
     created_at: "2025-11-06T12:00:00",
     updated_at: "2025-11-06T12:00:00",
@@ -427,7 +427,8 @@ const store = createStore({
       data: {},
       token: sessionStorage.getItem("TOKEN"),
     },
-    surveys :[...tmpSurveys],
+    surveys: [...tmpSurveys],
+    questionTypes: ["text", "select", "radio", "checkbox", "textarea"],
   },
   getters: {},
   actions: {
