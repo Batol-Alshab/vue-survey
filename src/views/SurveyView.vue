@@ -3,7 +3,7 @@
     <template v-slot:header>
       <div class="flex items-center justify-between">
         <h1 class="text-3xl font-bold text-gray-100">
-          {{ route.params.id && model ? model.title : "Create a Survey" }}
+          {{ route.params.id  ? model.title : "Create a Survey" }}
         </h1>
       </div>
     </template>
@@ -68,7 +68,8 @@
               id="title"
               v-model="model.title"
               autocomplete="survey_title"
-              class="py-1.5 px-3 mt-1 text-white border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm"
+              class="py-1.5 px-3 mt-1 text-white border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 
+           focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <!-- title -->
@@ -89,7 +90,8 @@
                 v-model="model.description"
                 autocomplete="survey_description"
                 placeholder="Description your survey"
-                class="py-1.5 px-3 text-white mt-1 border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm"
+                class="py-1.5 px-3 text-white mt-1 border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm  focus:bg-gray-900 
+           focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
               </textarea>
             </div>
@@ -108,7 +110,8 @@
               name="expire_date"
               id="expire_date"
               v-model="model.expire_date"
-              class="py-1.5 px-3 mt-1 border border-gray-400 text-white w-full block shadow-sm rounded-sm sm:text-sm"
+              class="py-1.5 px-3 mt-1  border border-gray-400 text-white w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 
+           focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <!-- expire_date -->
@@ -195,7 +198,9 @@ import { useRoute } from "vue-router";
 import PageComponent from "@/components/PageComponent.vue";
 import QuestionEditor from "@/components/editor/QuestionEditor.vue";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const route = useRoute();
 // create empty survey
 let model = ref({
@@ -206,29 +211,12 @@ let model = ref({
   expire_date: null,
   questions: [],
 });
-// if (route.params.id) {
-//   model.value = store.state.surveys.find(
-//     (s) => s.id === parseInt(route.params.id)
-//   );
-// }
 if (route.params.id) {
-  const survey = store.state.surveys.find(
+  model.value = store.state.surveys.find(
     (s) => s.id === parseInt(route.params.id)
   );
-  if (survey) {
-    model.value = survey;
-  } else {
-    // إذا الـ id غير موجود
-    model.value = {
-      title: "Survey Not Found",
-      status: false,
-      description: "",
-      image: null,
-      expire_date: null,
-      questions: [],
-    };
-  }
 }
+
 
 function addQuestion(index) {
   const newQuestion = {
@@ -251,5 +239,15 @@ function questionChange(question) {
     }
     return q;
   });
+}
+
+// create or update survey
+function saveSurvey(){
+  store.dispatch('saveSurvey',model.value).then(({data})=>{
+    router.push({
+      name:'SurveyView',
+      params:{id: data.data.id}
+    })
+  })  
 }
 </script>

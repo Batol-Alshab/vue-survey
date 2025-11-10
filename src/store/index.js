@@ -432,6 +432,19 @@ const store = createStore({
   },
   getters: {},
   actions: {
+    saveSurvey({ commit }, survey) {
+      if (survey.id) {
+        return axiosClient.put(`survey/${survey.id}`, survey).then((res) => {
+          commit("updateSurvey", res.data);
+          return res;
+        });
+      } else {
+        return axiosClient.post("/survey", survey).then((res) => {
+          commit("saveSurvey", res.data);
+          return res;
+        });
+      }
+    },
     register({ commit }, user) {
       return axiosClient.post("/register", user).then(({ data }) => {
         commit("setUser", data);
@@ -454,6 +467,17 @@ const store = createStore({
     },
   },
   mutations: {
+    saveSurvey: (state, survey) => {
+      state.surveys = [...state.surveys, survey.data];
+    },
+    updateSurvey: (state, survey) => {
+      state.surveys = state.surveys.map((s) => {
+        if (s.id == survey.data.id) {
+          return survey.data;
+        }
+        return s;
+      });
+    },
     setUser: (state, userData) => {
       state.user.token = userData.token;
       state.user.data = userData.user;
