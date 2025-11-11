@@ -28,7 +28,7 @@
     </template>
 
     <div v-if="surveyLoading" class="flex justify-center">loading...</div>
-    <form v-else @submit.prevent="saveSurvey" class="w-full">
+    <form v-else @submit.prevent="saveSurvey" class="w-full  animate-fade-in-down">
       <div class="shadow sm:rounded-md sm:overflow-hidden">
         <div class="px-4 py-5 bg-black space-y-6 sm:p-6">
           <!-- image -->
@@ -293,7 +293,10 @@ function saveSurvey() {
     router.push({
       name: "SurveyView",
       params: { id: data.data.id },
-    });
+    })
+    .catch(error => {
+    console.error(error.response?.data || error.message);
+  });
   });
 }
 
