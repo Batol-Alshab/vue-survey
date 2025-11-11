@@ -7,7 +7,9 @@
         </h1>
       </div>
     </template>
-    <form @submit.prevent="saveSurvey" class="w-full">
+
+    <div v-if="surveyLoading" class="flex justify-center"> loading...</div>
+    <form v-else @submit.prevent="saveSurvey" class="w-full">
       <div class="shadow sm:rounded-md sm:overflow-hidden">
         <div class="px-4 py-5 bg-black space-y-6 sm:p-6">
           <!-- image -->
@@ -17,8 +19,8 @@
             >
             <div class="mt-1 flex items-center">
               <img
-                v-if="model.image"
-                :src="model.image"
+                v-if="model.image_url"
+                :src="model.image_url"
                 :alt="model.title"
                 class="w-64 h-48 object-cover"
               />
@@ -46,6 +48,7 @@
               >
                 <input
                   type="file"
+                  @change="onImageChoose"
                   class="py-1.5 px-3 text-white absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer"
                 />
 
@@ -189,7 +192,7 @@
   </PageComponent>
 </template>
 <script setup>
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import store from "@/store";
 import { useRoute } from "vue-router";
 import PageComponent from "@/components/PageComponent.vue";
@@ -199,12 +202,14 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
+
+const surveyLoading = computed(() => store.state.currentSurvey.loading);
 // create empty survey
 let model = ref({
   title: "",
   status: false,
   description: null,
-  image: null,
+  image_url: null,
   expire_date: null,
   questions: [],
 });
@@ -212,7 +217,8 @@ let model = ref({
 // watch to current survey data change
 watch(
   () => store.state.currentSurvey.data, // هذا المصدر الذي نراقبه
-  (newVal, oldVal) => {                 // هذا الكولباك
+  (newVal, oldVal) => {
+    // هذا الكولباك
     model.value = {
       ...JSON.parse(JSON.stringify(newVal)),
       status: newVal.status !== "draft",
@@ -222,6 +228,20 @@ watch(
 
 if (route.params.id) {
   store.dispatch("getSurvey", route.params.id);
+}
+
+function onImageChoose(ev) {
+  const file = ev.target.files[0];
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    //the field to send on backend
+    model.value.image = reader.result;
+
+    //the field  to display here
+    model.value.image_url = reader.result;
+  };
+  reader.readAsDataURL(file);
 }
 
 function addQuestion(index) {

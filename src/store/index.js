@@ -454,14 +454,15 @@ const store = createStore({
       );
     },
     saveSurvey({ commit }, survey) {
+      delete survey.image_url;
       if (survey.id) {
         return axiosClient.put(`survey/${survey.id}`, survey).then((res) => {
-          commit("updateSurvey", res.data);
+          commit("setcurrentSurvey", res.data);
           return res;
         });
       } else {
         return axiosClient.post("/survey", survey).then((res) => {
-          commit("saveSurvey", res.data);
+          commit("setcurrentSurvey", res.data);
           return res;
         });
       }
@@ -493,18 +494,6 @@ const store = createStore({
     },
     setcurrentSurvey: (state, survey) => {
       state.currentSurvey.data = survey.data;
-    },
-
-    saveSurvey: (state, survey) => {
-      state.surveys = [...state.surveys, survey.data];
-    },
-    updateSurvey: (state, survey) => {
-      state.surveys = state.surveys.map((s) => {
-        if (s.id == survey.data.id) {
-          return survey.data;
-        }
-        return s;
-      });
     },
     setUser: (state, userData) => {
       state.user.token = userData.token;
