@@ -16,6 +16,11 @@ const store = createStore({
       data: {},
     },
     questionTypes: ["text", "select", "radio", "checkbox", "textarea"],
+    notificaion: {
+      show: false,
+      type: null,
+      message: null,
+    },
   },
   getters: {},
 
@@ -106,6 +111,15 @@ const store = createStore({
       state.user.data = {};
       state.user.token = null;
       sessionStorage.removeItem("TOKEN");
+    },
+
+    notify: (state, { type, message }) => {
+      state.notificaion.show= true;
+      state.notificaion.type = type;
+      state.notificaion.message = message;
+      setTimeout(()=>{
+        state.notificaion.show=false
+      },3000)
     },
   },
   modules: {},

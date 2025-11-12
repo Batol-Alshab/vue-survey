@@ -26,9 +26,11 @@
         </router-link>
       </div>
     </template>
-    <div class="grid grid-cols-1 gap-3 md:grid-cols-3 sm:grid-cols-2">
+    
+    <div v-if="surveys.loading" class="flex justify-center">loading...</div>
+    <div v-else class="grid grid-cols-1 gap-3 md:grid-cols-3 sm:grid-cols-2">
       <SurveyListItem
-        v-for="(survey,ind) in surveys"
+        v-for="(survey,ind) in surveys.data"
         :key="survey.id"
         :survey="survey"
         @delete="deleteSurvey(survey)"
@@ -44,7 +46,7 @@ import PageComponent from "@/components/PageComponent.vue";
 import store from "@/store";
 import { computed } from "vue";
 import SurveyListItem from "@/components/SurveyListItem.vue";
-const surveys = computed(() => store.state.surveys.data);
+const surveys = computed(() => store.state.surveys);
 
 function deleteSurvey(survey) {
   if (confirm("are you sure you want delete Survey")) {

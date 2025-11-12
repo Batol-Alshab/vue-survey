@@ -141,9 +141,10 @@
         </button>
         <!-- /Add New Option -->
       </h4>
-      <div v-if="!model.data.options.length" class="text-sm text-center text-gray-400 py-3 ">
-        You don't have any option defined
-      </div>
+      <div v-if="!model.data || !model.data.options || !model.data.options.length" 
+     class="text-sm text-center text-gray-400 py-3">
+  You don't have any option defined
+</div>
       <!-- option List -->
       <div
         v-for="(option, index) in model.data.options"
