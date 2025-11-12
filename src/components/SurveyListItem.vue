@@ -29,7 +29,9 @@
       </router-link>
 
       <div class="flex items-center">
-        <a :href="`/view/survey/${survey.slug}`" target="_blank" 
+        
+       <a :href="`/view/survey/${survey.slug}`"
+        target="_blank" 
         class="text-blue-400 mr-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"

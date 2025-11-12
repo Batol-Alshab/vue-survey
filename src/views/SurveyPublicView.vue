@@ -7,20 +7,29 @@
           <img :src="survey.image_url" alt="" />
         </div>
         <div class="col-span-5">
-          <h1 class="text-3xl mb-3">{{ survey.title }}</h1>
-          <p class="text-gray-500 text-sm" v-html="survey.description"></p>
+          <h1 class="text-3xl text-white mb-3">{{ survey.title }}</h1>
+          <p class=" text-sm" v-html="survey.description"></p>
         </div>
       </div>
 
-      <div v-if="surveyFinished" class="py-8 px-6 bg-emerald-400 text-white w-[600px] mx-auto">
-        <div class="text-xl mb-3 font-semibold ">Thank you for participating in this survey.</div>
-        <button @click="submitAnotherResponse" type="button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <div
+        v-if="surveyFinished"
+        class="py-8 px-6 bg-emerald-400 text-white w-[600px] mx-auto"
+      >
+        <div class="text-xl mb-3 font-semibold">
+          Thank you for participating in this survey.
+        </div>
+        <button
+          @click="submitAnotherResponse"
+          type="button"
+          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
           Submit another response
         </button>
       </div>
       <div v-else>
-        <hr class="my-3">
-        <div v-for="(question, ind) of survey.questions" :key="question.id">
+        <hr class="my-3" />
+        <div v-for="(question, ind) of survey.questions" :key="question.id" text-white>
           <QuestionViewer
             v-model="answers[question.id]"
             :question="question"
@@ -40,9 +49,37 @@
 </template>
 
 <script setup>
-import QuestionViewer from '@/viewer/QuestionViewer.vue';
+import QuestionViewer from "@/viewer/QuestionViewer.vue";
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+const route = useRoute();
+const store = useStore();
+
+const loading = computed(() => store.state.currentSurvey.loading);
+const survey = computed(() => store.state.currentSurvey.data);
+const surveyFinished = ref(false);
+const answers = ref({});
+store.dispatch("getSurveyBySlug", route.params.slug);
+function submitSurvey() {
+  console.log(JSON.stringify(answers.value, undefined, 2));
+  store
+    .dispatch("saveSurveyAnswer", {
+      surveyId: survey.value.id,
+      answers: answers.value,
+    })
+    .then((response) => {
+      if (response.states === 201) {
+        surveyFinished.value = true;
+      }
+    });
+}
+
+function submitAnotherResponse() {
+  answers.value = {};
+  surveyFinished.value = false;
+}
 </script>
 
-<style>
-
-</style>
+<style></style>
