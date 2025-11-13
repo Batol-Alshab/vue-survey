@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axiosClient from "@/axios";
+import Dashboard from "@/views/Dashboard.vue";
 
 const store = createStore({
   state: {
@@ -8,6 +9,10 @@ const store = createStore({
       token: sessionStorage.getItem("TOKEN"),
     },
     currentSurvey: {
+      loading: false,
+      data: {},
+    },
+    dashboard: {
       loading: false,
       data: {},
     },
@@ -26,6 +31,20 @@ const store = createStore({
   getters: {},
 
   actions: {
+    getDashboardData: ({ commit }) => {
+      commit("dashboardLoading", true);
+      return axiosClient
+        .get("/dashboard")
+        .then((res) => {
+          commit("dashboardLoading", false);
+          commit("setDashboardData", res.data);
+          return res;
+        })
+        .catch((err) => {
+          commit("dashboardLoading", false);
+          return err;
+        });
+    },
     getSurvey: ({ commit }, id) => {
       commit("setCurrentSurveyLoading", true);
       return axiosClient
@@ -84,8 +103,8 @@ const store = createStore({
         });
     },
 
-    saveSurveyAnswer({commit},{surveyId,answers}){
-      return axiosClient.post(`/survey/${surveyId}/answer`,{answers});
+    saveSurveyAnswer({ commit }, { surveyId, answers }) {
+      return axiosClient.post(`/survey/${surveyId}/answer`, { answers });
     },
     register({ commit }, user) {
       return axiosClient.post("/register", user).then(({ data }) => {
@@ -109,6 +128,12 @@ const store = createStore({
     },
   },
   mutations: {
+    dashboardLoading: (state, loading) => {
+      state.dashboard.loading = loading;
+    },
+    setDashboardData: (state, data) => {
+      state.dashboard.data = data;
+    },
     setCurrentSurveyLoading: (state, loading) => {
       state.currentSurvey.loading = loading;
     },
@@ -118,7 +143,6 @@ const store = createStore({
 
     setSurveysLoading: (state, loading) => {
       state.surveys.loading = loading;
-    
     },
     setSurveys: (state, surveys) => {
       state.surveys.data = surveys.data;
