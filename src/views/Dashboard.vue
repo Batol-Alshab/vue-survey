@@ -39,9 +39,26 @@
       />
       <h3 class="font-bold text-xl mb-3">{{ data.latestSurvey.title }}</h3>
       <div class="flex justify-between text-sm mb-1">
-        <div>update Date:</div>
+        <div>Created Date:</div>
         <div>{{ data.latestSurvey.created_at }}</div>
       </div>
+      <div class="flex justify-between text-sm mb-1">
+        <div>Expire date:</div>
+        <div>{{ data.latestSurvey.expire_date  }}</div>
+      </div>
+      <div class="flex justify-between text-sm mb-1">
+        <div>status:</div>
+        <div>{{ data.latestSurvey.status ? "Active" : "Draft" }}</div>
+      </div>
+      <div class="flex justify-between text-sm mb-1">
+        <div>Quesions:</div>
+        <div>{{ data.latestSurvey.questions }}</div>
+      </div>
+      <div class="flex justify-between text-sm mb-1">
+        <div>Answers:</div>
+        <div>{{ data.latestSurvey.answers }}</div>
+      </div>
+
       <div class="flex justify-between text-sm mb-4">
         <div>Answers:</div>
         <div>{{ data.totalAnswers }}</div>
@@ -98,7 +115,7 @@
       </div>
     </div>
     <div
-      class="bg-gray-300 text-black  flex flex-col order-4 lg:order-3 row-span-2 p-3 shadow-md text-center animate-fade-in-down"
+      class="bg-gray-300 text-black flex flex-col order-4 lg:order-3 row-span-2 p-3 shadow-md text-center animate-fade-in-down"
       style="animation-delay: 0.3s"
     >
       <div class="flex justify-between text-sm mb-3">
