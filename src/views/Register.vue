@@ -17,6 +17,17 @@
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" @submit="register" method="POST">
+        <Alert
+          v-if="Object.keys(errors).length"
+          class="flex-col items-stretch text-sm"
+        >
+          <div v-for="(field, i) of Object.keys(errors)" :key="i">
+            <div v-for="(error, ind) of errors[field] || []" :key="ind">
+              * {{ error }}
+            </div>
+          </div>
+        </Alert>
+
         <div class="pb-6">
           <label
             for="fullname"
@@ -98,9 +109,35 @@
 
         <div class="pb-8">
           <button
+            :disabled="loading"
+            :class="{
+              'cursor-not-allowed': loading,
+              'hover:bg-indigo-500': loading,
+            }"
             type="submit"
             class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
+            <svg
+              v-if="loading"
+              class="mr-3 h-5 w-5 text-white animate-spin"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
             Sign up
           </button>
         </div>
@@ -123,6 +160,7 @@
 import store from "@/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import Alert from "@/components/Alert.vue";
 
 const router = useRouter();
 const user = {
@@ -137,20 +175,20 @@ const errors = ref({});
 
 function register(ev) {
   ev.preventDefault();
-  // loading.value = true;
+  loading.value = true;
   store
     .dispatch("register", user)
     .then(() => {
-      // loading.value = false;
+      loading.value = false;
       router.push({
         name: "Dashboard",
       });
     })
-    // .catch((error) => {
-    //   loading.value = false;
-    //   if (error.response.status == 422) {
-    //     errors.value = error.response.data.errors;
-    //   }
-    // });
+    .catch((error) => {
+      loading.value = false;
+      if (error.response.status == 422) {
+        errors.value = error.response.data.errors;
+      }
+    });
 }
 </script>

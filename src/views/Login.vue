@@ -17,12 +17,10 @@
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" @submit="login" method="POST">
-        <div
-          v-if="errorMsg"
-          class="flex items-center justify-between bg-red-500 text-white rounded p-2 pl-4 pr-4"
-        >
+
+        <Alert  v-if="errorMsg">
           {{ errorMsg }}
-          <span
+           <span
             @click="errorMsg = ''"
             class="p-1 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]"
           >
@@ -41,8 +39,8 @@
               />
             </svg>
           </span>
-        </div>
-
+        </Alert>
+        
         <!-- eamil -->
         <div class="pb-6">
           <label
@@ -106,9 +104,35 @@
 
         <div class="pb-8">
           <button
+            :disabled="loading"
+            :class="{
+              'cursor-not-allowed': loading,
+              'hover:bg-indigo-500': loading,
+            }"
             type="submit"
-            class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            class="flex w-full justify-center items-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
+            <svg
+              v-if="loading"
+              class="mr-3 h-5 w-5 text-white animate-spin"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
             Sign in
           </button>
         </div>
@@ -131,6 +155,7 @@
 import store from "@/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import Alert from "@/components/Alert.vue";
 
 const router = useRouter();
 const user = {
@@ -139,17 +164,22 @@ const user = {
   remember: false,
 };
 let errorMsg = ref("");
-
+const loading = ref(false);
 function login(ev) {
   ev.preventDefault();
+  loading.value = true;
   store
     .dispatch("login", user)
     .then(() => {
+      console.log("login ");
+      loading.value = false;
       router.push({
         name: "Dashboard",
       });
     })
     .catch((err) => {
+      console.log("error ");
+      loading.value = false;
       errorMsg.value = err.response.data.error;
     });
 }
