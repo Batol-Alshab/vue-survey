@@ -70,7 +70,7 @@ function submitSurvey() {
       answers: answers.value,
     })
     .then((response) => {
-      if (response.states === 201) {
+      if (response.status === 201) {
         surveyFinished.value = true;
       }
     });

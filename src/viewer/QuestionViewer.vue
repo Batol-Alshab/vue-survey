@@ -1,7 +1,7 @@
 <template>
   <fieldset class="mb-4">
     <div>
-      <legend class="text-base font-medium text-gray-900">
+      <legend class="text-base font-medium text-gray-100">
         {{ index + 1 }}. {{ question.question }}
       </legend>
       <p class="text-gray-500 text-sm">
@@ -13,7 +13,7 @@
         <select
           :value="modelValue"
           @change="emits('update:modelValue', $event.target.value)"
-          class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          class="bg-gray-700 mt-1 block w-full py-2 px-3 border border-gray-300  rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         >
           <option value="">Please Select</option>
           <option v-for="option in parsedData.options" :key="option.uuid" :value="option.text">
@@ -69,14 +69,14 @@
           type="text"
           :value="modelValue"
           @input="emits('update:modelValue', $event.target.value)"
-          class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+          class=" bg-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
         />
       </div>
       <div v-else-if="question.type === 'textarea'">
         <textarea
           :value="modelValue"
           @input="emits('update:modelValue', $event.target.value)"
-          class="bg-white mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+          class="bg-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
         ></textarea>
       </div>
     </div>
@@ -113,15 +113,15 @@ const parsedData = computed(() => {
   return question.data || {};
 });
 
-function shouldHaveOptions() {
-  return ["select", "radio", "checkbox"].includes(question.type);
-}
+// function shouldHaveOptions() {
+//   return ["select", "radio", "checkbox"].includes(question.type);
+// }
 
 function onCheckboxChange($event) {
   const selectedOptions = [];
-  for (let uuid in model.value) {
-    if (model.value[uuid]) {
-      selectedOptions.push(uuid);
+  for (let text in model.value) {
+    if (model.value[text]) {
+      selectedOptions.push(text);
     }
   }
   emits("update:modelValue", selectedOptions);
