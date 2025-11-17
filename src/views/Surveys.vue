@@ -5,7 +5,7 @@
         <h1 class="text-2xl font-bold text-white">Surveys</h1>
         <router-link
           :to="{ name: 'SurveyCreate' }"
-          class="text-xl items-center justify-center py-2 px-3 text-black bg-emerald-500 rounded-md hover:bg-emerald-600"
+          class="text-xl items-center justify-center py-2 px-3 text-emerald-600 bg-black/10 shadow-sm shadow-emerald-600 rounded-md hover:bg-emerald-600 hover:text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,10 +26,32 @@
         </router-link>
       </div>
     </template>
-
-    <div v-if="surveys.loading" class="flex justify-center">loading...</div>
+    <div v-if="surveys.loading" class="h-96 flex items-center justify-center">
+      <svg
+        class="mr-3 h-16 w-16 text-blue-800 animate-spin"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+        ></path>
+      </svg>
+    </div>
     <div v-else>
-      <div class="grid grid-cols-1 gap-3 md:grid-cols-3 sm:grid-cols-2">
+      <div
+        class="grid grid-cols-1 gap-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4"
+      >
         <SurveyListItem
           v-for="(survey, ind) in surveys.data"
           :key="survey.id"
@@ -41,29 +63,32 @@
         </SurveyListItem>
       </div>
 
-      <div class="flex justify-center mt-5"> 
-        <nav class="relative inline-flex justify-center rounded-md shadow-sm" 
-        arisa-label="Pagination">
-          <a v-for="(link,i) of surveys.links" :key="i"
-          :disables="!link.url"
-          v-html="link.label"
-          href="#"
-          @click="getForPage($event,link)"
-          aria-current="page"
-          class="relative inline-flex justify-center border px-4 py-2 text-sm
-          "
-          :class="[
-            link.active?'bg-indigo-700 border-indigo-500 text-indigo-100':
-            'hover:bg-indigo-300 hover:text-black',
-            i === 0? 'rounded-sm':'',
-            i === surveys.links.length-1 ?'rounded-sm':'',
-          ]"> 
-
+      <div class="flex justify-center mt-5">
+        <nav
+          class="relative inline-flex justify-center rounded-md shadow-sm"
+          arisa-label="Pagination"
+        >
+          <a
+            v-for="(link, i) of surveys.links"
+            :key="i"
+            :disables="!link.url"
+            v-html="link.label"
+            href="#"
+            @click="getForPage($event, link)"
+            aria-current="page"
+            class="relative inline-flex justify-center border px-4 py-2 text-sm"
+            :class="[
+              link.active
+                ? 'bg-blue-600 border-blue-600 text-blue-100'
+                : 'hover:bg-black/30 hover:text-gray-800',
+              i === 0 ? 'rounded-sm' : '',
+              i === surveys.links.length - 1 ? 'rounded-sm' : '',
+            ]"
+          >
           </a>
         </nav>
       </div>
     </div>
-    
   </PageComponent>
 </template>
 <script setup>
@@ -81,11 +106,11 @@ function deleteSurvey(survey) {
   }
 }
 store.dispatch("getSurveys");
-function getForPage(ev,link){
+function getForPage(ev, link) {
   ev.preventDefault();
-  if(!link.url || link.active){
-    return ;
+  if (!link.url || link.active) {
+    return;
   }
-  store.dispatch("getSurveys",{url:link.url});
+  store.dispatch("getSurveys", { url: link.url });
 }
 </script>

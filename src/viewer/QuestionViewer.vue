@@ -1,10 +1,11 @@
 <template>
   <fieldset class="mb-4">
     <div>
-      <legend class="text-base font-medium text-gray-100">
-        {{ index + 1 }}. {{ question.question }}
+      <legend class="text-base font-medium text-black">
+        <span class="text-blue-600 font-bold text-xl"> {{ index + 1 }}. </span>
+        {{ question.question }}
       </legend>
-      <p class="text-gray-500 text-sm">
+      <p class="text-gray-600 text-sm">
         {{ question.description }}
       </p>
     </div>
@@ -13,10 +14,20 @@
         <select
           :value="modelValue"
           @change="emits('update:modelValue', $event.target.value)"
-          class="bg-gray-700 mt-1 block w-full py-2 px-3 border border-gray-300  rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          class="bg-gray-50 border
+           border-gray-200
+            w-full rounded-md
+             px-3 py-1 sm:py-2
+              text-base outline-1 
+              -outline-offset-1 outline-white/10
+               placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
         >
           <option value="">Please Select</option>
-          <option v-for="option in parsedData.options" :key="option.uuid" :value="option.text">
+          <option
+            v-for="option in parsedData.options"
+            :key="option.uuid"
+            :value="option.text"
+          >
             {{ option.text }}
           </option>
         </select>
@@ -37,7 +48,7 @@
           />
           <label
             :for="option.uuid"
-            class="ml-3 block text-sm font-medium text-gray-700"
+            class="ml-3 block text-sm font-medium text-gray-800"
           >
             {{ option.text }}
           </label>
@@ -58,7 +69,7 @@
           />
           <label
             :for="option.uuid"
-            class="ml-3 block text-sm font-medium text-gray-700"
+            class="ml-3 block text-sm font-medium text-gray-800"
           >
             {{ option.text }}
           </label>
@@ -69,7 +80,7 @@
           type="text"
           :value="modelValue"
           @input="emits('update:modelValue', $event.target.value)"
-          class=" bg-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+          class="bg-gray-700 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
         />
       </div>
       <div v-else-if="question.type === 'textarea'">
@@ -81,7 +92,7 @@
       </div>
     </div>
   </fieldset>
-  <hr class="mb-4" />
+  <hr class="mb-4 text-blue-800" />
 </template>
 
 <script setup>

@@ -1,14 +1,17 @@
 <template>
   <!-- Question index -->
   <div class="flex items-center justify-between">
-    <h3 class="text-lg font-bold">{{ index + 1 }}. {{ model.question }}</h3>
+    <h3 class="text-lg font-bold text-black">
+      <span class="text-blue-600 font-bold text-2xl"> {{ index + 1 }}. </span>
+      {{ model.question }}
+    </h3>
 
     <div class="flex items-center px-1">
       <!-- add new question -->
       <button
         type="button"
         @click="addQuestion"
-        class="flex items-center text-xs py-1 px-2 rounded-sm text-white bg-gray-500 hover:bg-gray-700"
+        class="flex items-center text-xs py-1 px-2 rounded-sm bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none text-gray-100"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +36,7 @@
       <button
         type="button"
         @click="deleteQuestion"
-        class="flex items-center m-3 text-xs py-1 px-2 rounded-sm text-red-400 hover:bg-red-700 hover:text-white"
+        class="flex items-center m-3 text-xs py-1 px-2 rounded-sm text-red-700 bg-black/10 hover:bg-red-700/70 hover:text-white shadow-md shadow-red-900/70 hover:shadow-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +65,7 @@
     <div class="mt-3 col-span-9">
       <label
         :for="'question_text_' + model.data"
-        class="block text-sm font-medium text-gray-200 pb-2"
+        class="block text-sm font-medium text-gray-700 pb-2"
       >
         Question Text
       </label>
@@ -72,14 +75,14 @@
         :name="'question_text_' + model.data"
         v-model="model.question"
         @change="dataChange"
-        class="text-gray-400 block w-full py-2 px-3 border border-gray-400 rounded-md sm:text-sm mt-1"
+        class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
       />
     </div>
     <!-- /question -->
 
     <!-- question type -->
     <div class="mt-3 col-span-3">
-      <label for="question_type" class="block text-sm font-medium pb-2">
+      <label for="question_type" class="block text-sm font-medium text-gray-700 pb-2">
         Question Type
       </label>
       <select
@@ -87,9 +90,10 @@
         name="question_type"
         v-model="model.type"
         @change="typeChange"
-        class="bg-gray-950 mt-1 block w-full px-3 py-2 border border-gray-400 rounded-md sm:text-sm"
-      >
-        <option v-for="type in questionTypes" :key="type" :value="type">
+        class=" bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 sm:py-2 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+       >
+        <option v-for="type in questionTypes" :key="type" :value="type" 
+        class="bg-blue-600/20 text-gray-800">
           {{ upperCaseFirst(type) }}
         </option>
       </select>
@@ -100,7 +104,7 @@
   <div class="mt-3 col-span-9">
     <label
       :for="'question_description_' + model.id"
-      class="block text-sm font-medium text-gray-200 pb-2 pt-4"
+      class="block text-sm font-medium text-gray-700 pb-2 pt-4"
     >
       Descriotion
     </label>
@@ -110,7 +114,7 @@
       @change="dataChange"
       rows="4"
       :id="'question_description_' + model.id"
-      class="w-full py-1.5 px-3 border border-gray-400 rounded-md sm:text-sm mt-1"
+      class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
     ></textarea>
   </div>
   <!-- /question description -->
@@ -118,10 +122,14 @@
   <!-- Data -->
   <div>
     <div v-if="shouldHaveOptions()" class="mt-2">
-      <h4 class="flex items-center justify-between text-sm font-semibold mb-3 ">
+      <h4 class="flex items-center justify-between text-sm font-semibold mb-3">
         Options
         <!-- Add New Oprion -->
-        <button type="button" @click="addOption()" class="flex items-center text-sm px-2 py-1 bg-gray-500 rounded-sm hover:bg-gray-700">
+        <button
+          type="button"
+          @click="addOption()"
+          class="flex items-center text-sm px-2 py-1  rounded-sm  bg-blue-600/90 hover:bg-blue-700/80 shadow-md shadow-blue-900 hover:shadow-none text-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -141,28 +149,32 @@
         </button>
         <!-- /Add New Option -->
       </h4>
-      <div v-if="!model.data || !model.data.options || !model.data.options.length" 
-     class="text-sm text-center text-gray-400 py-3">
-  You don't have any option defined
-</div>
+      <div
+        v-if="!model.data || !model.data.options || !model.data.options.length"
+        class="text-sm text-center text-gray-400 py-3"
+      >
+        You don't have any option defined 
+      </div>
       <!-- option List -->
       <div
         v-for="(option, index) in model.data.options"
         :key="option.uuid"
         class="flex items-center mb-1"
       >
-        <span class="w-6 text-sm"> {{ index + 1 }}. </span>
+        <span class="w-6 text-sm text-blue-600"> {{ index + 1 }}. </span>
         <input
           type="text "
           v-model="option.text"
           @change="dataChange"
-          class="w-full border border-gray-500 rounded-sm px-2 py-1 mb-1 mr-2"
-        />
+           class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+      />
 
         <!-- delete option -->
-        <button type="button" @click="removeOption(option)" class="
-        flex items-center justify-center mb-1 h-6 w-6 border border-transparent rounded-full
-         text-red-400 hover:bg-red-700 hover:text-white ">
+        <button
+          type="button"
+          @click="removeOption(option)"
+          class="flex items-center justify-center mb-1 h-6 w-6 border border-transparent rounded-full text-red-400 hover:bg-red-700 hover:text-white"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -199,7 +211,7 @@ const props = defineProps({
 const emit = defineEmits(["change", "addQuestion", "deleteQuestion"]);
 
 const model = ref(JSON.parse(JSON.stringify(props.question)));
-
+// model.value.data[options] = JSON.parse(JSON.stringify(props.question.data))
 // get question  types from vuex
 const questionTypes = computed(() => store.state.questionTypes);
 
@@ -249,9 +261,9 @@ function dataChange() {
 }
 
 function addQuestion() {
-  emit("addQuestion",props.index+1);
+  emit("addQuestion", props.index + 1);
 }
-function deleteQuestion(){
-  emit('deleteQuestion',props.question)
+function deleteQuestion() {
+  emit("deleteQuestion", props.question);
 }
 </script>

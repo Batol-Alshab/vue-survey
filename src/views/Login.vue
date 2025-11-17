@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="shadow-2xl p-4">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <div class="flex min-h-full flex-1 flex-col justify-center items-center">
         <img
-          class="mx-auto h-10 w-auto"
+          class="mx-auto h-10 w-auto mt-2"
           src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
           alt="Your Company"
         />
       </div>
       <h2
-        class="pb-12 mt-10 text-center text-2xl/9 font-bold tracking-tight text-white"
+        class="pb-8 mt-6 text-center text-2xl/9 font-bold tracking-tight text-blue-600"
       >
         Sign in to your account
       </h2>
@@ -17,10 +17,9 @@
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" @submit="login" method="POST">
-
-        <Alert  v-if="errorMsg">
+        <Alert v-if="errorMsg">
           {{ errorMsg }}
-           <span
+          <span
             @click="errorMsg = ''"
             class="p-1 flex items-center justify-center rounded-full transition-colors cursor-pointer hover:bg-[rgba(0,0,0,0.2)]"
           >
@@ -40,15 +39,13 @@
             </svg>
           </span>
         </Alert>
-        
+
         <!-- eamil -->
-        <div class="pb-6">
-          <label
-            for="email"
-            class="block text-sm/6 font-medium text-gray-100 pb-3"
-            >Email address</label
+        <div>
+          <label for="email" class="block text-sm/6 font-medium text-gray-800"
+            >Email address:</label
           >
-          <div class="mt-2">
+          <div class="mt-1">
             <input
               type="email"
               name="email"
@@ -56,21 +53,21 @@
               v-model="user.email"
               autocomplete="email"
               required
-              class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
 
         <!-- password -->
-        <div class="pb-6">
-          <div class="flex items-center justify-between pb-3">
+        <div>
+          <div class="flex items-center justify-between">
             <label
               for="password"
-              class="block text-sm/6 font-medium text-gray-100"
-              >Password</label
+              class="block text-sm/6 font-medium text-gray-800"
+              >Password:</label
             >
           </div>
-          <div class="mt-2">
+          <div class="mt-1">
             <input
               type="password"
               name="password"
@@ -78,49 +75,49 @@
               v-model="user.password"
               autocomplete="current-password"
               required
-              class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
 
         <!-- remember -->
-        <div class="flex items-center justify-between pb-3">
+        <div class="flex items-center justify-between pb-1">
           <div class="flex items-center">
             <input
               type="checkbox"
               id="remember"
               v-model="user.remember"
               name="remember"
-              class="h-4 w-4"
+              class="bg-gray-50 rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white"
             />
             <label
               for="remember"
-              class="block pl-2 text-sm/6 font-medium text-gray-100"
+              class="block pl-2 text-sm/6 font-medium text-gray-800"
             >
               Remember me</label
             >
           </div>
         </div>
 
-        <div class="pb-8">
+        <div class="pb-4">
           <button
             :disabled="loading"
             :class="{
               'cursor-not-allowed': loading,
-              'hover:bg-indigo-500': loading,
+              'hover:bg-blue-700': loading,
             }"
             type="submit"
-            class="flex w-full justify-center items-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            class="flex w-full justify-center items-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-gray-100 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
             <svg
               v-if="loading"
-              class="mr-3 h-5 w-5 text-white animate-spin"
+              class="mr-3 h-5 w-5 text-gray-100 animate-spin"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
             >
               <circle
-                class="opacity-25"
+                class="opacity-50"
                 cx="12"
                 cy="12"
                 r="10"
@@ -128,7 +125,7 @@
                 stroke-width="4"
               ></circle>
               <path
-                class="opacity-75"
+                class="opacity-100"
                 fill="currentColor"
                 d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
               ></path>
@@ -138,12 +135,12 @@
         </div>
       </form>
 
-      <p class="mt-10 text-center text-sm/6 text-gray-400">
+      <p class="text-center text-sm/8 text-gray-500">
         Not a member?
         {{ " " }}
         <router-link
           :to="{ name: 'Register' }"
-          class="font-semibold text-indigo-400 hover:text-indigo-300"
+          class="font-semibold text-blue-600 hover:text-blue-700"
           >Register now free
         </router-link>
       </p>

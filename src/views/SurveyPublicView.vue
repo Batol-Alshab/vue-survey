@@ -7,14 +7,14 @@
           <img :src="survey.image_url" alt="" />
         </div>
         <div class="col-span-5">
-          <h1 class="text-3xl text-white mb-3">{{ survey.title }}</h1>
-          <p class=" text-sm" v-html="survey.description"></p>
+          <h1 class="text-3xl text-blue-800 mb-3">{{ survey.title }}</h1>
+          <p class="text-sm" v-html="survey.description"></p>
         </div>
       </div>
 
       <div
         v-if="surveyFinished"
-        class="py-8 px-6 bg-emerald-400 text-white w-[600px] mx-auto"
+        class="mt-4 py-5 px-3 grid grid-rows-2 justify-center bg-emerald-400 text-white mx-auto"
       >
         <div class="text-xl mb-3 font-semibold">
           Thank you for participating in this survey.
@@ -22,14 +22,14 @@
         <button
           @click="submitAnotherResponse"
           type="button"
-          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          class="flex w-fit justify-center items-center rounded-sm bg-blue-600 px-3 py-1.5 text-sm font-semibold text-gray-100 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
         >
           Submit another response
         </button>
       </div>
       <div v-else>
-        <hr class="my-3" />
-        <div v-for="(question, ind) of survey.questions" :key="question.id" text-white>
+        <hr class="my-3 text-blue-900" />
+        <div v-for="(question, ind) of survey.questions" :key="question.id">
           <QuestionViewer
             v-model="answers[question.id]"
             :question="question"

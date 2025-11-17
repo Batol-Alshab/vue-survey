@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-between bg-red-700 text-white rounded p-2 pl-4 pr-4"
+    class="flex items-center justify-between bg-red-600 text-gray-100 rounded px-3 py-1"
   >
     <slot></slot>
   </div>

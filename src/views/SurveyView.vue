@@ -2,12 +2,15 @@
   <PageComponent>
     <template v-slot:header>
       <div class="flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-gray-100">
+        <h1 class="text-3xl font-bold text-gray-800">
           {{ route.params.id ? model.title : "Create a Survey" }}
         </h1>
-        <button v-if="route.params.id" type="button" 
-        class=" border border-transparent rounded-md text-white bg-red-700 hover:bg-red-900 shadow-2xl flex justify-center items-center px-2 py-1 m-r-2"
-        @click="deleteSurvey()">
+        <button
+          v-if="route.params.id"
+          type="button"
+          class="border border-transparent rounded-md text-red-700 bg-black/10 hover:bg-red-700/70 hover:text-white shadow-2xl flex justify-center items-center px-2 py-1 m-r-2"
+          @click="deleteSurvey()"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -27,13 +30,39 @@
       </div>
     </template>
 
-    <div v-if="surveyLoading" class="flex justify-center">loading...</div>
-    <form v-else @submit.prevent="saveSurvey" class="w-full  animate-fade-in-down">
-      <div class="shadow sm:rounded-md sm:overflow-hidden">
-        <div class="px-4 py-5 bg-black space-y-6 sm:p-6">
+    <!-- <div v-if="surveyLoading" class="flex justify-center">loading...</div> -->
+    <div v-if="surveyLoading" class="h-96 flex items-center justify-center">
+      <svg
+        class="mr-3 h-16 w-16 text-blue-800 animate-spin"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+        ></path>
+      </svg>
+    </div>
+    <form
+      v-else
+      @submit.prevent="saveSurvey"
+      class="w-full animate-fade-in-down   "
+    >
+      <div class="shadow-2xl sm:rounded-xl shadow-blue-300 sm:overflow-hidden">
+        <div class="px-4 py-5 space-y-6 sm:p-6">
           <!-- image -->
           <div>
-            <label class="block font-medium text-sm text-gray-100 pb-2"
+            <label class="block font-medium text-sm text-gray-800 pb-2"
               >Image</label
             >
             <div class="mt-1 flex items-center">
@@ -45,14 +74,14 @@
               />
               <span
                 v-else
-                class="flex h-12 w-12 items-center justify-center rounded-full overflow-hidden bg-gray-800 p-1"
+                class="flex h-12 w-12 items-center justify-center rounded-full overflow-hidden bg-white/70 p-1"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-[80%] w-[80%] text-gray-300"
+                  class="h-[80%] w-[80%] text-blue-600"
                 >
                   <path
                     stroke-linecap="round"
@@ -63,7 +92,7 @@
               </span>
               <button
                 type="button"
-                class="relative overflow-hidden bg-gray-500 m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-gray-200 leading-4 hover:bg-gray-700"
+                class="relative overflow-hidden bg-blue-600 shadow-blue-900 hover:shadow-white m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-gray-100 leading-4 hover:bg-blue-700"
               >
                 <input
                   type="file"
@@ -81,7 +110,7 @@
           <div>
             <label
               for="title"
-              class="block font-medium text-sm pt-6 pb-2 text-gray-100"
+              class="block font-medium text-sm pt-6 pb-2 text-gray-800"
               >Title
             </label>
             <input
@@ -90,7 +119,7 @@
               id="title"
               v-model="model.title"
               autocomplete="survey_title"
-              class="py-1.5 px-3 mt-1 text-white border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
             />
           </div>
           <!-- title -->
@@ -99,7 +128,7 @@
           <div>
             <label
               for="about"
-              class="block font-medium text-sm pt-6 pb-2 text-gray-100"
+              class="block font-medium text-sm pt-6 pb-2 text-gray-800"
             >
               Descriotion
             </label>
@@ -111,7 +140,7 @@
                 v-model="model.description"
                 autocomplete="survey_description"
                 placeholder="Description your survey"
-                class="py-1.5 px-3 text-white mt-1 border border-gray-400 w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
               >
               </textarea>
             </div>
@@ -122,7 +151,7 @@
           <div>
             <label
               for="expire_date"
-              class="block font-medium text-sm pt-6 pb-2 text-gray-100"
+              class="block font-medium text-sm pt-6 pb-2 text-gray-800"
               >Expire date</label
             >
             <input
@@ -130,24 +159,24 @@
               name="expire_date"
               id="expire_date"
               v-model="model.expire_date"
-              class="py-1.5 px-3 mt-1 border border-gray-400 text-white w-full block shadow-sm rounded-sm sm:text-sm focus:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
             />
           </div>
           <!-- expire_date -->
 
           <!-- status -->
           <div class="flex items-start pt-6 pb-2">
-            <div class="flex items-center h-5 pr-2">
+            <div class="flex items-center h-5 pr-1">
               <input
                 type="checkbox"
                 name="status"
                 id="status"
-                class="py-1.5 h-4 w-4 rounded border border-gray-400 text-white"
+                class="h-4 w-4 bg-gray-50 rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white"
                 v-model="model.status"
               />
             </div>
             <div class="ml-3 text-sm">
-              <label for="status" class="font-medium pt-6 pb-2 text-white"
+              <label for="status" class="font-medium pt-6 pb-2 text-gray-800"
                 >Active</label
               >
             </div>
@@ -155,14 +184,16 @@
           <!-- status -->
         </div>
 
-        <div class="px-4 py-5 bg-black space-y-6 sm:p-6 text-white">
-          <h3 class="flex items-center text-2xl font-semibold justify-between">
+        <div class="px-4 py-5 space-y-6 sm:p-6 text-gray-800">
+          <h3
+            class="flex items-center text-2xl bg-amber-400/50 py-3 px-1 font-semibold justify-between"
+          >
             Questions
             <!-- Add new Question -->
             <button
               type="button"
               @click="addQuestion()"
-              class="flex items-center px-4 py-1 bg-gray-500 hover:bg-gray-700 rounded-sm text-sm"
+              class="flex items-center px-4 py-1 bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none text-gray-100 rounded-sm text-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -182,7 +213,7 @@
               Add Question
             </button>
           </h3>
-          <div v-if="!model.questions.length" class="text-center text-gray-300">
+          <div v-if="!model.questions.length" class="text-center text-gray-700">
             You don't have any questions created
           </div>
           <div v-for="(question, index) in model.questions" :key="question.id">
@@ -197,10 +228,10 @@
           </div>
         </div>
         <!-- save -->
-        <div class="px-4 py-3 text-right sm:px-6 bg-gray-800">
+        <div class="px-4 py-3 text-right sm:px-6">
           <button
             type="submit"
-            class="inline-flex justify-center px-4 py-2 cursor-pointer border border-transparent font-medium text-white bg-indigo-800 rounded-md shadow-2xl"
+            class="inline-flex justify-center px-4 py-2 cursor-pointer border border-transparent font-medium rounded-md bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none text-gray-100"
           >
             Save
           </button>
@@ -290,27 +321,28 @@ function questionChange(question) {
 // create or update survey
 function saveSurvey() {
   store.dispatch("saveSurvey", model.value).then(({ data }) => {
-    store.commit('notify',{
-      type:'success',
-      message:'survey was sueccessfully upated'
-    })
-    router.push({
-      name: "SurveyView",
-      params: { id: data.data.id },
-    })
-    .catch(error => {
-    console.error(error.response?.data || error.message);
-  });
+    store.commit("notify", {
+      type: "success",
+      message: "survey was sueccessfully upated",
+    });
+    router
+      .push({
+        name: "SurveyView",
+        params: { id: data.data.id },
+      })
+      .catch((error) => {
+        console.error(error.response?.data || error.message);
+      });
   });
 }
 
-function deleteSurvey(){
-  if(confirm("are you sure you want delete Survey")){
-    store.dispatch('deleteSurvey',model.value.id).then(()=>{
+function deleteSurvey() {
+  if (confirm("are you sure you want delete Survey")) {
+    store.dispatch("deleteSurvey", model.value.id).then(() => {
       router.push({
-        name:'Surveys',
-      })
-    })
+        name: "Surveys",
+      });
+    });
   }
 }
 </script>
