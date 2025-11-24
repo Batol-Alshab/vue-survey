@@ -8,15 +8,15 @@
     ```
   -->
   <div class="min-h-full">
-    <Disclosure as="nav" class="bg-blue-600" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-black" v-slot="{ open }">
       <div class="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center ">
             <div class="shrink-0">
               <img
-                class="size-8 bg-amber-200  rounded-tr-xl rounded-bl-xl "
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                class=" h-12 w-auto rounded-tr-xl rounded-bl-xl "
                 alt="Your Company"
+                src="../assets/mylogo.jpg"
               />
             </div>
             <div class="hidden md:block">
@@ -27,8 +27,8 @@
                   :to="item.to"
                   :class="[
                     route.name === item.to.name
-                      ? 'bg-amber-200 text-black'
-                      : 'text-gray-200 hover:bg-white/50 hover:text-gray-800',
+                      ? 'bg-amber-200 text-black shadow shadow-amber-50'
+                      : 'text-gray-200 hover:bg-amber-200 hover:text-black',
                     'block rounded-md px-3 py-2 text-base font-medium',
                   ]"
                 >
@@ -61,7 +61,7 @@
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="h-9 w-9 text-amber-200 "
+                    class="h-8 w-8 text-amber-200"
                   >
                     <path
                       stroke-linecap="round"

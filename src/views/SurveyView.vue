@@ -8,7 +8,7 @@
         <button
           v-if="route.params.id"
           type="button"
-          class="border border-transparent rounded-md text-red-700 bg-black/10 hover:bg-red-700/70 hover:text-white shadow-2xl flex justify-center items-center px-2 py-1 m-r-2"
+          class="border border-transparent rounded-md cursor-pointer bg-red-700/70 text-white shadow-2xl flex justify-center items-center px-2 py-1 m-r-2"
           @click="deleteSurvey()"
         >
           <svg
@@ -33,7 +33,7 @@
     <!-- <div v-if="surveyLoading" class="flex justify-center">loading...</div> -->
     <div v-if="surveyLoading" class="h-96 flex items-center justify-center">
       <svg
-        class="mr-3 h-16 w-16 text-blue-800 animate-spin"
+        class="mr-3 h-16 w-16 text-amber-200 animate-spin"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -56,11 +56,12 @@
     <form
       v-else
       @submit.prevent="saveSurvey"
-      class="w-full animate-fade-in-down   "
+      class="w-full animate-fade-in-down"
     >
       <div class="shadow-2xl sm:rounded-xl shadow-blue-300 sm:overflow-hidden">
         <div class="px-4 py-5 space-y-6 sm:p-6">
           <!-- image -->
+
           <div>
             <label class="block font-medium text-sm text-gray-800 pb-2"
               >Image</label
@@ -81,7 +82,7 @@
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-[80%] w-[80%] text-blue-600"
+                  class="h-[80%] w-[80%] text-amber-200"
                 >
                   <path
                     stroke-linecap="round"
@@ -92,7 +93,7 @@
               </span>
               <button
                 type="button"
-                class="relative overflow-hidden bg-blue-600 shadow-blue-900 hover:shadow-white m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-gray-100 leading-4 hover:bg-blue-700"
+                class="relative overflow-hidden bg-amber-200 shadow-black/50 hover:shadow-white m-4 py-2 px-3 border border-gray-400 shadow-sm rounded-sm font-medium text-sm text-black leading-4 hover:bg-amber-200/80"
               >
                 <input
                   type="file"
@@ -119,7 +120,7 @@
               id="title"
               v-model="model.title"
               autocomplete="survey_title"
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
             />
           </div>
           <!-- title -->
@@ -140,7 +141,7 @@
                 v-model="model.description"
                 autocomplete="survey_description"
                 placeholder="Description your survey"
-                class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+                class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
               >
               </textarea>
             </div>
@@ -159,7 +160,7 @@
               name="expire_date"
               id="expire_date"
               v-model="model.expire_date"
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
             />
           </div>
           <!-- expire_date -->
@@ -171,7 +172,7 @@
                 type="checkbox"
                 name="status"
                 id="status"
-                class="h-4 w-4 bg-gray-50 rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white"
+                class="h-4 w-4 bg-gray-50 rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white"
                 v-model="model.status"
               />
             </div>
@@ -186,14 +187,14 @@
 
         <div class="px-4 py-5 space-y-6 sm:p-6 text-gray-800">
           <h3
-            class="flex items-center text-2xl bg-amber-400/50 py-3 px-1 font-semibold justify-between"
+            class="flex items-center text-2xl bg-amber-200/70 px-2 py-3 font-semibold justify-between"
           >
             Questions
             <!-- Add new Question -->
             <button
               type="button"
               @click="addQuestion()"
-              class="flex items-center px-4 py-1 bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none text-gray-100 rounded-sm text-sm"
+              class="flex items-center px-4 py-1 border bg-amber-200/80 text-gray-800 hover:bg-amber-200 hover:text-black shadow-md shadow-black/30 hover:shadow-none rounded-sm text-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -227,11 +228,12 @@
             </QuestionEditor>
           </div>
         </div>
+
         <!-- save -->
         <div class="px-4 py-3 text-right sm:px-6">
           <button
             type="submit"
-            class="inline-flex justify-center px-4 py-2 cursor-pointer border border-transparent font-medium rounded-md bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none text-gray-100"
+            class="inline-flex justify-center px-4 py-2 cursor-pointer border border-black/40 font-medium rounded-md bg-amber-200 shadow-md shadow-black/50 hover:shadow-none hover:border-transparent text-black"
           >
             Save
           </button>
@@ -250,10 +252,11 @@ import QuestionEditor from "@/components/editor/QuestionEditor.vue";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "vue-router";
 import Surveys from "./Surveys.vue";
+import Alert from "@/components/Alert.vue";
 
 const router = useRouter();
 const route = useRoute();
-
+let errorMsg = ref("");
 const surveyLoading = computed(() => store.state.currentSurvey.loading);
 // create empty survey
 let model = ref({
@@ -320,20 +323,41 @@ function questionChange(question) {
 
 // create or update survey
 function saveSurvey() {
-  store.dispatch("saveSurvey", model.value).then(({ data }) => {
-    store.commit("notify", {
-      type: "success",
-      message: "survey was sueccessfully upated",
-    });
-    router
-      .push({
+  store
+    .dispatch("saveSurvey", model.value)
+    .then(({ data }) => {
+      store.commit("notify", {
+        type: "success",
+        message: "survey was sueccessfully upated",
+      });
+
+      router.push({
         name: "SurveyView",
         params: { id: data.data.id },
-      })
-      .catch((error) => {
-        console.error(error.response?.data || error.message);
       });
-  });
+    })
+    .catch((error) => {
+      console.error("Server error:", error.response?.data || error);
+
+      // طباعة الخطأ القادم من السيرفر
+      if (error.response?.data?.message) {
+        errorMsg.value = error.response.data.message;
+      } else {
+        errorMsg.value = "Something went wrong!";
+      }
+      model.value.image = null;
+      model.value.image_url = null;
+      store.commit("notify", {
+        type: "error",
+        message: errorMsg,
+      });
+    });
+  //     })
+  //     .catch((error) => {
+  //       console.error(error.response?.data || error.message);
+  //       errorMsg.value = err.message;
+  //     });
+  // });
 }
 
 function deleteSurvey() {

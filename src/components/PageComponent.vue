@@ -1,6 +1,6 @@
 <template >
   <header
-    class="relative bg-amber-400/60 text-gray-100 after:pointer-events-none after:absolute 
+    class="relative bg-amber-200 text-gray-100 after:pointer-events-none after:absolute 
     after:inset-x-0 after:inset-y-0 after:border-y
      after:border-white/10
      "

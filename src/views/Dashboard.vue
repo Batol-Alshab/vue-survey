@@ -1,37 +1,38 @@
 <template>
   <div>
-    <PageComponent title="dashboard"> </PageComponent>
-    <div v-if="loading" class="h-96  flex items-center justify-center"> <svg
-              
-              class="mr-3 h-16 w-16 text-blue-800 animate-spin"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              ></path>
-            </svg></div>
+    <PageComponent title="Dashboard"> </PageComponent>
+    <div v-if="loading" class="h-96 flex items-center justify-center">
+      <svg
+        class="mr-3 h-16 w-16 text-amber-200 animate-spin"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+        ></path>
+      </svg>
+    </div>
     <div
-     v-else
+      v-else
       class="m-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 animate-fade-in-down"
     >
       <div
-        class="bg-amber-200/40 rounded-sm flex flex-col sm:order-1 lg:order-2 p-3 shadow-xl   text-center animate-fade-in-down"
+        class="bg-amber-100/30 rounded-sm flex flex-col sm:order-1 lg:order-2 p-3 shadow-xl text-center animate-fade-in-down"
         style="animation-delay: 0.1s"
       >
         <h3
-          class="sm:text-md md:text-xl lg:text-2xl text-blue-800 font-semibold"
+          class="sm:text-md md:text-xl lg:text-2xl text-yellow-500 font-semibold"
         >
           total Surveys
         </h3>
@@ -42,11 +43,11 @@
         </div>
       </div>
       <div
-        class="bg-amber-200/40 flex flex-col order-2 lg:order-4 p-3 lg:mb-2 shadow-xl   text-center animate-fade-in-down"
+        class="bg-amber-100/30 flex flex-col order-2 lg:order-4 p-3 lg:mb-2 shadow-xl text-center animate-fade-in-down"
         style="animation-delay: 0.2s"
       >
         <h3
-          class="sm:text-md md:text-xl lg:text-2xl text-blue-800 font-semibold"
+          class="sm:text-md md:text-xl lg:text-2xl text-yellow-500 font-semibold"
         >
           total Answers
         </h3>
@@ -58,18 +59,18 @@
       </div>
       <div
         v-if="data.latestSurvey"
-        class="bg-amber-200/40 text-black flex flex-col order-3 lg:order-1 row-span-2 p-3 shadow-xl   text-center animate-fade-in-down"
+        class="bg-amber-100/30 text-black flex flex-col order-3 lg:order-1 row-span-2 p-3 shadow-xl text-center animate-fade-in-down"
       >
         <h3
-          class="sm:text-md md:text-xl lg:text-2xl text-blue-800 font-semibold"
+          class="sm:text-md md:text-xl lg:text-2xl text-yellow-500 font-semibold"
         >
           Latest Survey
         </h3>
 
-        <img
+        <img v-show="data.latestSurvey.image_url"
           :src="data.latestSurvey.image_url"
-          alt="image"
-          class="w-[240 px] mx-auto py-2 rounded-2xl shadow-xl"
+          alt=""
+          class="w-[240 px] mx-auto p-2 rounded-2xl shadow-xl mb-2"
         />
         <h3
           class="sm:text-md md:text-xl lg:text-2xl text-gray-800 font-bold mb-3"
@@ -86,9 +87,12 @@
         </div>
         <div class="flex justify-between text-sm mb-1">
           <div>status:</div>
-          <div :class="{ 
-          'text-green-600' :data.latestSurvey.status,
-           'text-orange-800':!data.latestSurvey.status}">
+          <div
+            :class="{
+              'text-green-600': data.latestSurvey.status,
+              'text-orange-800': !data.latestSurvey.status,
+            }"
+          >
             {{ data.latestSurvey.status ? "Active" : "Draft" }}
           </div>
         </div>
@@ -101,14 +105,11 @@
           <div>{{ data.latestSurvey.answers }}</div>
         </div>
 
-        <div class="flex justify-between text-sm mb-4">
-          <div>Answers:</div>
-          <div>{{ data.totalAnswers }}</div>
-        </div>
+     
         <div class="flex justify-between">
           <router-link
             :to="{ name: 'SurveyView', params: { id: data.latestSurvey.id } }"
-            class="text-blue-600 p-1 flex justify-center items-center border border-transparent rounded-sm hover:bg-blue-700 hover:text-white focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400"
+            class="text-yellow-500 p-1 flex justify-center items-center border border-transparent rounded-sm hover:bg-amber-200 hover:text-black focus:ring-2 focus:ring-offset-2 focus:ring-amber-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +131,7 @@
 
           <!-- view button for answers -->
           <button
-            class="text-blue-600 p-1 flex justify-center items-center border border-transparent rounded-sm hover:bg-blue-700 hover:text-white focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400"
+            class="text-yellow-500 p-1 flex justify-center items-center border border-transparent rounded-sm hover:bg-amber-200 hover:text-black focus:ring-2 focus:ring-offset-2 focus:ring-amber-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -157,18 +158,18 @@
         </div>
       </div>
       <div
-        class="bg-amber-200/40 text-black flex flex-col order-4 lg:order-3 row-span-2 p-3 shadow-xl   text-center animate-fade-in-down"
+        class="bg-amber-100/30 text-black flex flex-col order-4 lg:order-3 row-span-2 p-3 shadow-xl text-center animate-fade-in-down"
         style="animation-delay: 0.3s"
       >
         <div class="flex justify-between text-sm mb-3">
           <h3
-            class="sm:text-md md:text-xl lg:text-2xl text-blue-800 font-semibold"
+            class="sm:text-md md:text-xl lg:text-2xl text-yellow-500 font-semibold"
           >
             Latest Answers
           </h3>
           <a
             href="javacript:void(0)"
-            class="text-sm text-blue-600 hover:text-blue-700"
+            class="text-sm text-yellow-600 hover:text-yellow-800 underline"
             >View all</a
           >
         </div>
@@ -176,7 +177,7 @@
           href="#"
           v-for="answer in data.latestAnswers"
           :key="answer.id"
-          class="block hover:bg-gray-400 text-left"
+          class="p-2 block hover:bg-amber-50 hover:text-yellow-700 hover:text-lg text-left"
         >
           <div class="font-semibold">{{ answer.survey.title }}</div>
           <small>

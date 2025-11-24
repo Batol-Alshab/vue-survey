@@ -2,7 +2,7 @@
   <!-- Question index -->
   <div class="flex items-center justify-between">
     <h3 class="text-lg font-bold text-black">
-      <span class="text-blue-600 font-bold text-2xl"> {{ index + 1 }}. </span>
+      <span class="text-yellow-500 font-bold text-2xl"> {{ index + 1 }}. </span>
       {{ model.question }}
     </h3>
 
@@ -11,7 +11,9 @@
       <button
         type="button"
         @click="addQuestion"
-        class="flex items-center text-xs py-1 px-2 rounded-sm bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none text-gray-100"
+        class="flex items-center text-xs py-1 px-2 rounded-sm
+         bg-amber-200/80 hover:bg-amber-200  shadow-md shadow-black/30
+          hover:shadow-none text-black"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +38,7 @@
       <button
         type="button"
         @click="deleteQuestion"
-        class="flex items-center m-3 text-xs py-1 px-2 rounded-sm text-red-700 bg-black/10 hover:bg-red-700/70 hover:text-white shadow-md shadow-red-900/70 hover:shadow-none"
+        class="flex items-center m-3 text-xs py-1 px-2 rounded-sm   bg-red-700/70 text-white shadow-md shadow-red-900/70 hover:shadow-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +77,7 @@
         :name="'question_text_' + model.data"
         v-model="model.question"
         @change="dataChange"
-        class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+        class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
       />
     </div>
     <!-- /question -->
@@ -90,10 +92,10 @@
         name="question_type"
         v-model="model.type"
         @change="typeChange"
-        class=" bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 sm:py-2 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+        class=" bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 sm:py-2 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
        >
         <option v-for="type in questionTypes" :key="type" :value="type" 
-        class="bg-blue-600/20 text-gray-800">
+        class="bg-amber-200/20  text-gray-800">
           {{ upperCaseFirst(type) }}
         </option>
       </select>
@@ -114,7 +116,7 @@
       @change="dataChange"
       rows="4"
       :id="'question_description_' + model.id"
-      class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+      class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
     ></textarea>
   </div>
   <!-- /question description -->
@@ -128,7 +130,10 @@
         <button
           type="button"
           @click="addOption()"
-          class="flex items-center text-sm px-2 py-1  rounded-sm  bg-blue-600/90 hover:bg-blue-700/80 shadow-md shadow-blue-900 hover:shadow-none text-gray-100"
+          class="flex items-center text-sm px-2 py-1  rounded-sm 
+           bg-amber-200
+           shadow-md shadow-black/30 hover:shadow-none
+            text-black"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -161,12 +166,12 @@
         :key="option.uuid"
         class="flex items-center mb-1"
       >
-        <span class="w-6 text-sm text-blue-600"> {{ index + 1 }}. </span>
+        <span class="w-6 text-sm text-yellow-500"> {{ index + 1 }}. </span>
         <input
           type="text "
           v-model="option.text"
           @change="dataChange"
-           class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6 text-black"
+           class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
       />
 
         <!-- delete option -->

@@ -2,10 +2,14 @@
   <PageComponent>
     <template v-slot:header>
       <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-white">Surveys</h1>
+        <h1
+          class="font-bold tracking-tight text-gray-800 sm:text-xl md:text-2xl lg:text-3xl"
+        >
+          Surveys
+        </h1>
         <router-link
           :to="{ name: 'SurveyCreate' }"
-          class="text-xl items-center justify-center py-2 px-3 text-emerald-600 bg-black/10 shadow-sm shadow-emerald-600 rounded-md hover:bg-emerald-600 hover:text-white"
+          class="text-xl items-center justify-center py-2 px-3 border border-white text-white bg-black  hover:shadow-none rounded-md"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +32,7 @@
     </template>
     <div v-if="surveys.loading" class="h-96 flex items-center justify-center">
       <svg
-        class="mr-3 h-16 w-16 text-blue-800 animate-spin"
+        class="mr-3 h-16 w-16 text-amber-200 animate-spin"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -76,11 +80,11 @@
             href="#"
             @click="getForPage($event, link)"
             aria-current="page"
-            class="relative inline-flex justify-center border px-4 py-2 text-sm"
+            class="text-gray-800 relative inline-flex justify-center border px-4 py-2 text-sm"
             :class="[
               link.active
-                ? 'bg-blue-600 border-blue-600 text-blue-100'
-                : 'hover:bg-black/30 hover:text-gray-800',
+                ? 'bg-amber-200 border-yellow-500 text-black'
+                : 'hover:bg-black/70 hover:text-white',
               i === 0 ? 'rounded-sm' : '',
               i === surveys.links.length - 1 ? 'rounded-sm' : '',
             ]"

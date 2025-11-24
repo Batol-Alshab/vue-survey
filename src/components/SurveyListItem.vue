@@ -1,15 +1,18 @@
 <template>
   <div
-    class="flex flex-col py-4 px-6 shadow-md bg-amber-200/40  hover:bg-amber-200/60 h-[470px]"
+    class="flex flex-col py-4 px-6 shadow-md bg-amber-100/30  hover:bg-amber-100/50 h-[470px]"
   >
     <img :src="survey.image_url" class="w-full h-3/4 object-cover" />
-    <h4 class="mt-4 text-lg font-bold text-blue-800">{{ survey.title }}</h4>
+    <h4 class="mt-4 text-lg font-bold text-black">{{ survey.title }}</h4>
     <div v-html="survey.description" class=" flex-1 "></div>
     <div class="flex items-center justify-between mt-3">
       <router-link
         :to="{ name: 'SurveyView', params: { id: survey.id } }"
         class="grid grid-cols-2 gap-1 py-2 px-2 border border-transparent text-sm 
-        rounded-md text-white justify-between items-center bg-blue-600 hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  
+        rounded-md  justify-between 
+        items-center bg-amber-200 text-black
+         hover:bg-black/80 hover:text-yellow-500 focus:ring-2 focus:ring-offset-2 focus:ring-amber-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +36,7 @@
         
        <a :href="`/view/survey/${survey.slug}`"
         target="_blank" 
-        class="text-blue-600 mr-2">
+        class="text-yellow-500 mr-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

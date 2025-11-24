@@ -65,7 +65,7 @@
               v-model="user.name"
               autocomplete="name"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -81,7 +81,7 @@
               v-model="user.email"
               autocomplete="email"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -102,7 +102,7 @@
               v-model="user.password"
               autocomplete="current-password"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -123,7 +123,7 @@
               v-model="user.password_confirmation"
               autocomplete="current-password"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white sm:text-sm/6"
+              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -135,7 +135,7 @@
               id="remember"
               v-model="user.remember"
               name="remember"
-              class="bg-gray-50 rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 focus:bg-white"
+              class="bg-gray-50 rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white"
             />
             <label
               for="remember"
