@@ -11,9 +11,7 @@
       <button
         type="button"
         @click="addQuestion"
-        class="flex items-center text-xs py-1 px-2 rounded-sm
-         bg-amber-200/80 hover:bg-amber-200  shadow-md shadow-black/30
-          hover:shadow-none text-black"
+        class="flex items-center text-xs py-1 px-2 rounded-sm bg-amber-200/80 hover:bg-amber-200 shadow-md shadow-black/30 hover:shadow-none text-black"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +36,7 @@
       <button
         type="button"
         @click="deleteQuestion"
-        class="flex items-center m-3 text-xs py-1 px-2 rounded-sm   bg-red-700/70 text-white shadow-md shadow-red-900/70 hover:shadow-none"
+        class="flex items-center m-3 text-xs py-1 px-2 rounded-sm bg-red-700/70 text-white shadow-md shadow-red-900/70 hover:shadow-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -62,46 +60,25 @@
   </div>
   <!-- /Question index -->
 
-  <div class="grid grid-cols-12 gap-3">
-    <!-- question -->
-    <div class="mt-3 col-span-9">
-      <label
-        :for="'question_text_' + model.data"
-        class="block text-sm font-medium text-gray-700 pb-2"
-      >
-        Question Text
-      </label>
-      <input
-        type="text"
-        :id="'question_text_' + model.data"
-        :name="'question_text_' + model.data"
-        v-model="model.question"
-        @change="dataChange"
-        class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
-      />
-    </div>
-    <!-- /question -->
-
-    <!-- question type -->
-    <div class="mt-3 col-span-3">
-      <label for="question_type" class="block text-sm font-medium text-gray-700 pb-2">
-        Question Type
-      </label>
-      <select
-        id="question_type"
-        name="question_type"
-        v-model="model.type"
-        @change="typeChange"
-        class=" bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 sm:py-2 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
-       >
-        <option v-for="type in questionTypes" :key="type" :value="type" 
-        class="bg-amber-200/20  text-gray-800">
-          {{ upperCaseFirst(type) }}
-        </option>
-      </select>
-    </div>
-    <!-- /question type -->
+  <!-- question -->
+  <div class="mt-3 col-span-9">
+    <label
+      :for="'question_text_' + model.data"
+      class="block text-sm font-medium text-gray-700 pb-2"
+    >
+      Question Text
+    </label>
+    <input
+      type="text"
+      :id="'question_text_' + model.data"
+      :name="'question_text_' + model.data"
+      v-model="model.question"
+      @change="dataChange"
+      class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
+    />
   </div>
+  <!-- /question -->
+
   <!-- question description -->
   <div class="mt-3 col-span-9">
     <label
@@ -120,6 +97,54 @@
     ></textarea>
   </div>
   <!-- /question description -->
+  <div class="grid grid-cols-12 gap-3">
+    <!-- points -->
+    <div class="mt-3 col-span-6">
+      <label
+        :for="'question_text_' + model.data"
+        class="block text-sm font-medium text-gray-700 pb-2"
+      >
+        Question points
+      </label>
+      <input
+        type="number"
+        min="0"
+        :id="'question_points_' + model.data"
+        :name="'question_points_' + model.data"
+        v-model="model.points"
+        @change="dataChange"
+        class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
+      />
+    </div>
+    <!-- /points -->
+
+    <!-- question type -->
+    <div class="mt-3 col-span-6">
+      <label
+        for="question_type"
+        class="block text-sm font-medium text-gray-700 pb-2"
+      >
+        Question Type
+      </label>
+      <select
+        id="question_type"
+        name="question_type"
+        v-model="model.type"
+        @change="typeChange"
+        class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 sm:py-2 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
+      >
+        <option
+          v-for="type in questionTypes"
+          :key="type"
+          :value="type"
+          class="bg-amber-200/20 text-gray-800"
+        >
+          {{ upperCaseFirst(type) }}
+        </option>
+      </select>
+    </div>
+    <!-- /question type -->
+  </div>
 
   <!-- Data -->
   <div>
@@ -130,10 +155,7 @@
         <button
           type="button"
           @click="addOption()"
-          class="flex items-center text-sm px-2 py-1  rounded-sm 
-           bg-amber-200
-           shadow-md shadow-black/30 hover:shadow-none
-            text-black"
+          class="flex items-center text-sm px-2 py-1 rounded-sm bg-amber-200 shadow-md shadow-black/30 hover:shadow-none text-black"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -158,7 +180,7 @@
         v-if="!model.data || !model.data.options || !model.data.options.length"
         class="text-sm text-center text-gray-400 py-3"
       >
-        You don't have any option defined 
+        You don't have any option defined
       </div>
       <!-- option List -->
       <div
@@ -171,8 +193,8 @@
           type="text "
           v-model="option.text"
           @change="dataChange"
-           class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
-      />
+          class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6 text-black"
+        />
 
         <!-- delete option -->
         <button
@@ -201,6 +223,30 @@
     </div>
   </div>
   <!-- /Data -->
+  <!-- correct answer -->
+  <div class="mt-3 col-span-9">
+    <label
+      :for="'question_correct_answer_' + model.data"
+      class="block text-sm font-medium text-gray-700 pb-2"
+    >
+      Correct Answer
+    </label>
+    <input
+      type="text"
+      :id="'question_correct_answer_' + model.data"
+      :name="'question_correct_answer_' + model.data"
+      v-model="model.correct_answer"
+      @input="dataChange"
+      class="bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:bg-white sm:text-sm/6 text-black"
+      :class="{
+        'border-red-500': answerStatus === false,
+        'border-green-500': answerStatus === true,
+        'border-gray-200': answerStatus === null,
+      }"
+    />
+  </div>
+  <!-- /correct answer -->
+
   <hr class="my-4 text-gray-700" />
 </template>
 <script setup>
@@ -219,6 +265,8 @@ const model = ref(JSON.parse(JSON.stringify(props.question)));
 // model.value.data[options] = JSON.parse(JSON.stringify(props.question.data))
 // get question  types from vuex
 const questionTypes = computed(() => store.state.questionTypes);
+
+const answerStatus = ref(null);
 
 function upperCaseFirst(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -261,8 +309,16 @@ function dataChange() {
   const data = JSON.parse(JSON.stringify(model.value));
   if (!shouldHaveOptions()) {
     delete data.data.options;
+  } else {
+    const options = data.data.options.map((o) => o.text.trim());
+    let correct = data.correct_answer.trim();
+    answerStatus.value = options.includes(correct);
+    if (correct === "") answerStatus.value = null;
+   
   }
+
   emit("change", data);
+  
 }
 
 function addQuestion() {

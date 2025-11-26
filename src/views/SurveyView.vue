@@ -275,6 +275,7 @@ watch(
     // هذا الكولباك
     model.value = {
       ...JSON.parse(JSON.stringify(newVal)),
+      expire_date: newVal.expire_date?.split(" ")[0] || null,
       status: newVal.status !== "draft",
     };
   }
@@ -304,6 +305,8 @@ function addQuestion(index) {
     type: "text",
     question: "",
     description: "",
+    points: "",
+    correct_answer: "",
     data: {},
   };
   model.value.questions.splice(index, 0, newQuestion);
@@ -323,6 +326,42 @@ function questionChange(question) {
 
 // create or update survey
 function saveSurvey() {
+  for (const q of model.value.questions) {
+    // إذا كان للسؤال options
+    if (q.data && q.data.options) {
+      // 1️⃣ إزالة الخيارات المكررة
+      const seen = new Set();
+      q.data.options = q.data.options.filter((op) => {
+        const txt = op.text.trim();
+        if (seen.has(txt)) return false;
+        seen.add(txt);
+        return true;
+      });
+
+      // 2️⃣ تنظيف correct_answer حسب الخيارات
+      const optionTexts = q.data.options.map((o) => o.text.trim());
+      const correct = q.correct_answer?.trim() || "";
+
+      // إذا غير موجود ضمن الخيارات
+      if (correct && !optionTexts.includes(correct)) {
+        const deleteAnswer = confirm(
+          "⚠️ سيتم حذف الإجابات غير المطابقة لخياراتها.\nهل تريد المتابعة؟"
+        );
+
+        if (!deleteAnswer) {
+          // المستخدم رفض → نوقف الحفظ
+          return;
+        }
+
+        // المستخدم وافق → احذف correct_answer
+        q.correct_answer = "";
+      }
+    } else {
+      // سؤال من غير options → إحذف options لو موجودة غلط
+      if (q.data) delete q.data.options;
+    }
+  } // انتهى الـ for
+
   store
     .dispatch("saveSurvey", model.value)
     .then(({ data }) => {
@@ -352,12 +391,6 @@ function saveSurvey() {
         message: errorMsg,
       });
     });
-  //     })
-  //     .catch((error) => {
-  //       console.error(error.response?.data || error.message);
-  //       errorMsg.value = err.message;
-  //     });
-  // });
 }
 
 function deleteSurvey() {

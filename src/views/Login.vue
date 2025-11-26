@@ -9,7 +9,7 @@
         />
       </div>
       <h2
-        class="pb-8 mt-6 text-center text-2xl/9 font-bold tracking-tight text-blue-600"
+        class="pb-8 mt-6 text-center text-2xl/9 font-bold tracking-tight text-yellow-500"
       >
         Sign in to your account
       </h2>
@@ -53,7 +53,7 @@
               v-model="user.email"
               autocomplete="email"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
+              class="block text-black bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -75,7 +75,7 @@
               v-model="user.password"
               autocomplete="current-password"
               required
-              class="text-black block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-600 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
+              class="text-black  block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-600 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -88,7 +88,7 @@
               id="remember"
               v-model="user.remember"
               name="remember"
-              class="bg-gray-50 rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white"
+              class="bg-gray-50 text-black rounded-sm focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white"
             />
             <label
               for="remember"
@@ -104,10 +104,12 @@
             :disabled="loading"
             :class="{
               'cursor-not-allowed': loading,
-              'hover:bg-blue-700': loading,
+              'hover:bg-amber-200': loading,
             }"
             type="submit"
-            class="flex w-full justify-center items-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-gray-100 hover:bg-blue-700 shadow-md shadow-blue-900 hover:shadow-none hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            class="flex w-full justify-center items-center rounded-md bg-amber-200/80
+             px-3 py-1.5 text-sm font-semibold text-black hover:bg-amber-200/90 shadow-md
+              shadow-black/30 hover:shadow-none  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
             <svg
               v-if="loading"
@@ -140,7 +142,7 @@
         {{ " " }}
         <router-link
           :to="{ name: 'Register' }"
-          class="font-semibold text-blue-600 hover:text-blue-700"
+          class="font-semibold text-yellow-500 hover:text-yellow-800"
           >Register now free
         </router-link>
       </p>

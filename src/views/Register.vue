@@ -9,7 +9,7 @@
         />
       </div>
       <h2
-        class="pb-8 mt-6 text-center text-2xl/9 font-bold tracking-tight text-blue-600"
+        class="pb-8 mt-6 text-center text-2xl/9 font-bold tracking-tight text-yellow-500"
       >
         Register
       </h2>
@@ -65,7 +65,7 @@
               v-model="user.name"
               autocomplete="name"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
+              class="block bg-gray-50 text-black border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -81,7 +81,7 @@
               v-model="user.email"
               autocomplete="email"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
+              class="block text-black bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -102,7 +102,7 @@
               v-model="user.password"
               autocomplete="current-password"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
+              class="block text-black bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -123,7 +123,7 @@
               v-model="user.password_confirmation"
               autocomplete="current-password"
               required
-              class="block bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
+              class="block text-black bg-gray-50 border border-gray-200 w-full rounded-md px-3 py-1 text-base outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-amber-200 focus:bg-white sm:text-sm/6"
             />
           </div>
         </div>
@@ -153,7 +153,7 @@
               'hover:bg-indigo-500': loading,
             }"
             type="submit"
-            class="flex w-full justify-center items-center rounded-md bg-blue-600 shadow-md shadow-blue-900 hover:shadow-none px-3 py-1.5 text-sm font-semibold text-gray-100 hover:bg-blue-700 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            class="flex w-full justify-center items-center rounded-md bg-amber-200/80 shadow-md shadow-black/30 hover:shadow-none px-3 py-1.5 text-sm font-semibold text-black hover:bg-amber-200  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
             <svg
               v-if="loading"
@@ -186,7 +186,7 @@
         {{ " " }}
         <router-link
           :to="{ name: 'Login' }"
-          class="font-semibold text-blue-600 hover:text-blue-700"
+          class="font-semibold text-yellow-500 hover:text-yellow-800"
           >login to your account</router-link
         >
       </p>

@@ -21,6 +21,14 @@ const store = createStore({
       links: [],
       data: {},
     },
+    surveyAnswer: {
+      loading: false,
+      data: {},
+    },
+    surveyAnswerId: {
+      loading: false,
+      data: {},
+    },
     questionTypes: ["text", "select", "radio", "checkbox", "textarea"],
     notificaion: {
       show: false,
@@ -88,6 +96,50 @@ const store = createStore({
         return res;
       });
     },
+
+    getSurveyAnswer: ({ commit }, id) => {
+      commit("setSurveyAnswerLoading", true);
+      return axiosClient
+        .get(`answer/${id}`)
+        .then((res) => {
+          commit("setSurveyAnswer", res.data);
+          commit("setSurveyAnswerLoading", false);
+          return res;
+        })
+        .catch((err) => {
+          commit("setSurveyAnswerLoading", false);
+          throw err;
+        });
+    },
+    getSurveyAnswerId: ({ commit }, id) => {
+      commit("setSurveyAnswerIdLoading", true);
+      return axiosClient
+        .get(`answers/${id}`)
+        .then((res) => {
+          commit("setSurveyAnswerId", res.data);
+          commit("setSurveyAnswerIdLoading", false);
+          return res;
+        })
+        .catch((err) => {
+          commit("setSurveyAnswerIdLoading", false);
+          throw err;
+        });
+    },
+    getFirstSurveyAnswer: ({ commit }, id) => {
+      commit("setSurveyAnswerLoading", true);
+      return axiosClient
+        .get(`First-answers/${id}`)
+        .then((res) => {
+          commit("setSurveyAnswer", res.data);
+          commit("setSurveyAnswerLoading", false);
+          return res;
+        })
+        .catch((err) => {
+          commit("setSurveyAnswerLoading", false);
+          throw err;
+        });
+    },
+
     getSurveyBySlug({ commit }, slug) {
       commit("setCurrentSurveyLoading", true);
       return axiosClient
@@ -104,7 +156,13 @@ const store = createStore({
     },
 
     saveSurveyAnswer({ commit }, { surveyId, answers }) {
-      return axiosClient.post(`/survey/${surveyId}/answer`, { answers });
+      // return axiosClient.post(`/survey/${surveyId}/answer`, { answers });
+      const { user_name, ...restAnswers } = answers;
+
+      return axiosClient.post(`/survey/${surveyId}/answer`, {
+        user_name, // ← الآن موجود مباشرة
+        answers: restAnswers, // ← باقي الإجابات بدون user_name
+      });
     },
     register({ commit }, user) {
       return axiosClient.post("/register", user).then(({ data }) => {
@@ -148,6 +206,20 @@ const store = createStore({
       state.surveys.data = surveys.data;
       state.surveys.links = surveys.meta.links;
     },
+    setSurveyAnswerLoading: (state, loading) => {
+      state.surveyAnswer.loading = loading;
+    },
+    setSurveyAnswer: (state, surveyAnswer) => {
+      state.surveyAnswer.data = surveyAnswer;
+    },
+
+    setSurveyAnswerIdLoading: (state, loading) => {
+      state.surveyAnswerId.loading = loading;
+    },
+    setSurveyAnswerId: (state, data) => {
+      state.surveyAnswerId.data = data;
+    },
+
     setUser: (state, userData) => {
       state.user.token = userData.token;
       state.user.data = userData.user;
